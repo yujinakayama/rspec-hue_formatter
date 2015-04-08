@@ -1,4 +1,4 @@
-require "rspec/hue_formatter/version"
+require 'rspec/hue_formatter/version'
 
 module Rspec
   module HueFormatter
