@@ -5,7 +5,7 @@ require 'rspec/hue_formatter/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'rspec-hue_formatter'
-  spec.version       = Rspec::HueFormatter::VERSION
+  spec.version       = Rspec::HueFormatter::Version.to_s
   spec.authors       = ['Yuji Nakayama']
   spec.email         = ['nkymyj@gmail.com']
 
