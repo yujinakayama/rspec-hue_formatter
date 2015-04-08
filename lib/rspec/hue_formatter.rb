@@ -52,7 +52,7 @@ module RSpec
     end
 
     def dump_summary(notification)
-      turn_off_lights
+      turn_off_lights(IMMEDIATE_TRANSITION)
 
       sleep 2
 
@@ -85,8 +85,8 @@ module RSpec
       end
     end
 
-    def turn_off_lights
-      set_all_light_states({ on: false }, SLOW_TRANSITION)
+    def turn_off_lights(transition_time = SLOW_TRANSITION)
+      set_all_light_states({ on: false }, transition_time)
     end
 
     def glow_all_lights(hue, number_of_times)
