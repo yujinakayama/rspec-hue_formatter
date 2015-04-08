@@ -7,3 +7,7 @@ group :development, :test do
   gem 'rspec', '~> 3.2'
   gem 'rubocop', '~> 0.30'
 end
+
+group :test do
+  gem 'coveralls', '~> 0.7'
+end

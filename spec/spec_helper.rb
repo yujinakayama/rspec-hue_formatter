@@ -88,3 +88,17 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 end
+
+if ENV['CI'] || ENV['COVERAGE']
+  require 'simplecov'
+
+  if ENV['CI']
+    require 'coveralls'
+    SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+  end
+
+  SimpleCov.start do
+    add_filter '/spec/'
+    add_filter '/vendor/'
+  end
+end
