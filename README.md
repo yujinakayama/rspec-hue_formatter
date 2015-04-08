@@ -1,39 +1,36 @@
-# Rspec::HueFormatter
+[![Gem Version](http://img.shields.io/gem/v/rspec-hue_formatter.svg?style=flat)](http://badge.fury.io/rb/rspec-hue_formatter)
+[![Dependency Status](http://img.shields.io/gemnasium/yujinakayama/rspec-hue_formatter.svg?style=flat)](https://gemnasium.com/yujinakayama/rspec-hue_formatter)
+[![Build Status](https://travis-ci.org/yujinakayama/rspec-hue_formatter.svg?branch=master&style=flat)](https://travis-ci.org/yujinakayama/rspec-hue_formatter)
+[![Coverage Status](http://img.shields.io/coveralls/yujinakayama/rspec-hue_formatter/master.svg?style=flat)](https://coveralls.io/r/yujinakayama/rspec-hue_formatter)
+[![Code Climate](https://img.shields.io/codeclimate/github/yujinakayama/rspec-hue_formatter.svg?style=flat)](https://codeclimate.com/github/yujinakayama/rspec-hue_formatter)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rspec/hue_formatter`. To experiment with that code, run `bin/console` for an interactive prompt.
+# RSpec::HueFormatter
 
-TODO: Delete this and the text above, and describe your gem
+Bring RSpec integration into your room with [Philips Hue](http://www2.meethue.com/).
+
+## Requirements
+
+* Philips Hue :)
+* RSpec 3
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add `rspec-hue_formatter` dependency to your Gemfile:
 
 ```ruby
 gem 'rspec-hue_formatter'
 ```
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install rspec-hue_formatter
-
 ## Usage
 
-TODO: Write usage instructions here
+Run `rspec` with `--format RSpec::HueFormatter` as follows:
 
-## Development
+```bash
+$ bundle exec rspec --format RSpec::HueFormatter
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
+## License
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Copyright (c) 2015 Yuji Nakayama
 
-## Contributing
-
-1. Fork it ( https://github.com/[my-github-username]/rspec-hue_formatter/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+See the [LICENSE.txt](LICENSE.txt) for details.
