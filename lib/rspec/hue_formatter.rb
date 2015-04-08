@@ -4,7 +4,9 @@ module RSpec
   class HueFormatter
     Core::Formatters.register(
       self,
-      :start, :example_started, :example_passed, :example_pending, :example_failed, :close
+      :start,
+      :example_started, :example_passed, :example_pending, :example_failed,
+      :dump_summary, :close
     )
 
     GREEN  = 29_000
@@ -49,8 +51,21 @@ module RSpec
       flash_current_light(RED)
     end
 
+    def dump_summary(notification)
+      turn_off_lights
+
+      sleep 2
+
+      hue = case
+            when notification.failure_count.nonzero? then RED
+            when notification.pending_count.nonzero? then YELLOW
+            else GREEN
+            end
+
+      glow_all_lights(hue, 2)
+    end
+
     def close(_notification)
-      sleep 1 # This is for visual interval and also for restoring light states certainly.
       restore_light_states
     end
 
@@ -71,22 +86,36 @@ module RSpec
     end
 
     def turn_off_lights
+      set_all_light_states({ on: false }, SLOW_TRANSITION)
+    end
+
+    def glow_all_lights(hue, number_of_times)
+      number_of_times.times do
+        set_all_light_states(bright_state(hue), SLOW_TRANSITION)
+        sleep 1
+        set_all_light_states({ brightness: Hue::Light::BRIGHTNESS_RANGE.begin }, SLOW_TRANSITION)
+        sleep 1
+      end
+    end
+
+    def set_all_light_states(state, transition_time)
       lights.each do |light|
-        light.set_state({ on: false }, SLOW_TRANSITION)
+        light.set_state(state, transition_time)
       end
     end
 
     def flash_current_light(hue)
       previous_light.set_state({ on: false }, IMMEDIATE_TRANSITION)
+      current_light.set_state(bright_state(hue), IMMEDIATE_TRANSITION)
+    end
 
-      state = {
+    def bright_state(hue)
+      {
                 on: true,
                hue: hue,
         saturation: Hue::Light::SATURATION_RANGE.end,
         brightness: Hue::Light::BRIGHTNESS_RANGE.end
       }
-
-      current_light.set_state(state, IMMEDIATE_TRANSITION)
     end
 
     def current_light

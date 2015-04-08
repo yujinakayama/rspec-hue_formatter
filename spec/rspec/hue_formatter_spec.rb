@@ -2,6 +2,10 @@ require 'rspec/hue_formatter'
 
 module RSpec
   RSpec.describe HueFormatter do
+    green_hue_range = [25_000, 40_000]
+    yellow_hue_range = [10_000, 15_000]
+    red_hue_range = [0, 5_000]
+
     subject(:formatter) do
       described_class.new(output)
     end
@@ -62,9 +66,9 @@ module RSpec
 
     describe 'light coloring' do
       [
-        [:passed,  'green',  [25_000, 40_000]],
-        [:pending, 'yellow', [10_000, 15_000]],
-        [:failed,  'red',    [0,      5_000]]
+        [:passed,  'green',  green_hue_range],
+        [:pending, 'yellow', yellow_hue_range],
+        [:failed,  'red',    red_hue_range]
       ].each do |result, color, hue_range|
         context "when example #{result}" do
           it "flashes the current light in #{color}" do
@@ -76,6 +80,86 @@ module RSpec
             run_example(result)
           end
         end
+      end
+    end
+
+    describe '#dump_summary' do
+      let(:notification) do
+        Core::Notifications::SummaryNotification.new(
+          duration,
+          examples,
+          failed_examples,
+          pending_examples,
+          load_time
+        )
+      end
+
+      let(:duration)  { 1.0 }
+      let(:examples) { example_count.times.map { double('example') } }
+      let(:failed_examples) { examples.sample(failure_count) }
+      let(:pending_examples) { examples.sample(pending_count) }
+      let(:load_time) { 0.1 }
+
+      let(:example_count) { 0 }
+      let(:failure_count) { 0 }
+      let(:pending_count) { 0 }
+
+      before do
+        allow(formatter).to receive(:sleep)
+      end
+
+      it 'turns all the lights off once and then turns them on' do
+        lights.each do |light|
+          expect(light).to receive(:set_state).with(a_hash_including(on: false), anything).ordered
+        end
+
+        lights.each do |light|
+          expect(light).to receive(:set_state).with(a_hash_including(on: true), anything).ordered
+        end
+
+        formatter.dump_summary(notification)
+      end
+
+      shared_examples 'turns all the lights' do |color, hue_range|
+        it "turns all the lights on in #{color}" do
+          lights.each do |light|
+            expect(light).to receive(:set_state).with(
+              a_hash_including(hue: a_value_between(*hue_range)),
+              anything
+            )
+          end
+
+          formatter.dump_summary(notification)
+        end
+      end
+
+      context 'when no examples were run' do
+        let(:example_count) { 0 }
+        include_examples 'turns all the lights', 'green', green_hue_range
+      end
+
+      context 'when all examples were passed' do
+        let(:example_count) { 3 }
+        include_examples 'turns all the lights', 'green', green_hue_range
+      end
+
+      context 'when an example was failed' do
+        let(:example_count) { 3 }
+        let(:failure_count) { 1 }
+        include_examples 'turns all the lights', 'red', red_hue_range
+      end
+
+      context 'when an example was pending' do
+        let(:example_count) { 3 }
+        let(:pending_count) { 1 }
+        include_examples 'turns all the lights', 'yellow', yellow_hue_range
+      end
+
+      context 'when an example was failed and another example was pending' do
+        let(:example_count) { 3 }
+        let(:failure_count) { 1 }
+        let(:pending_count) { 1 }
+        include_examples 'turns all the lights', 'red', red_hue_range
       end
     end
   end
