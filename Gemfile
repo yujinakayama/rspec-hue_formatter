@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in rspec-hue_formatter.gemspec
 gemspec
+
+group :development, :test do
+  gem 'rake', '~> 10.0'
+end
