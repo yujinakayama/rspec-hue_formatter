@@ -7,3 +7,5 @@ RSpec::Core::RakeTask.new do |task|
 end
 
 RuboCop::RakeTask.new
+
+task ci: [:spec, :rubocop]
