@@ -8,7 +8,7 @@
 
 Bring RSpec integration into your room with [Philips Hue](http://www2.meethue.com/).
 
-<iframe src="https://player.vimeo.com/video/124436622" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+* [RSpec::HueFormatter on Vimeo](https://vimeo.com/124436622)
 
 ## Requirements
 
