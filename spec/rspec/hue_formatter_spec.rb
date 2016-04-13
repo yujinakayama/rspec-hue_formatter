@@ -15,7 +15,7 @@ module RSpec
     end
 
     let(:lights) do
-      3.times.map do |index|
+      Array.new(3) do |index|
         instance_double(Hue::Light, "light #{index + 1}").as_null_object
       end
     end
@@ -94,8 +94,8 @@ module RSpec
         )
       end
 
-      let(:duration)  { 1.0 }
-      let(:examples) { example_count.times.map { double('example') } }
+      let(:duration) { 1.0 }
+      let(:examples) { Array.new(example_count) { double('example') } }
       let(:failed_examples) { examples.sample(failure_count) }
       let(:pending_examples) { examples.sample(pending_count) }
       let(:load_time) { 0.1 }

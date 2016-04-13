@@ -21,7 +21,7 @@ module RSpec
              hue: :hue,
       saturation: :saturation,
       brightness: :brightness
-    }
+    }.freeze
 
     attr_reader :example_index
 
