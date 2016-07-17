@@ -132,10 +132,11 @@ module RSpec
     end
 
     def lights
-      @lights ||= begin
-        hue = Hue::Client.new
-        hue.lights.sort_by(&:name)
-      end
+      @lights ||= hue.lights.select(&:reachable?).sort_by(&:name)
+    end
+
+    def hue
+      @hue ||= Hue::Client.new
     end
   end
 end

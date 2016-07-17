@@ -14,14 +14,21 @@ module RSpec
       StringIO.new
     end
 
+    let(:hue) do
+      instance_double(Hue::Client, lights: lights)
+    end
+
     let(:lights) do
-      Array.new(3) do |index|
-        instance_double(Hue::Light, "light #{index + 1}").as_null_object
-      end
+      Array.new(3) { |index| create_light(name: "Lamp #{index + 1}") }
+    end
+
+    def create_light(attributes = {})
+      fail ArgumentError unless attributes[:name]
+      instance_double(Hue::Light, attributes[:name], attributes).as_null_object
     end
 
     before do
-      allow(formatter).to receive(:lights).and_return(lights)
+      allow(formatter).to receive(:hue).and_return(hue)
     end
 
     def run_example(result = :passed)
@@ -60,6 +67,26 @@ module RSpec
           expect(lights.last).to receive(:set_state).with(a_hash_including(on: false), 0)
           expect(lights.first).to receive(:set_state).with(a_hash_including(on: true), 0)
           run_example
+        end
+      end
+
+      context "when there're unreachable lights" do
+        let(:lights) do
+          [
+            create_light(name: "Lamp 1", reachable?: true),
+            create_light(name: "Lamp 2", reachable?: false),
+            create_light(name: "Lamp 3", reachable?: true),
+          ]
+        end
+
+        before do
+          lights.size.times do
+            run_example
+          end
+        end
+
+        it 'uses only reachable lights' do
+          expect(lights[1]).not_to have_received(:set_state)
         end
       end
     end
