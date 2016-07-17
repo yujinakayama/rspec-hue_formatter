@@ -31,7 +31,7 @@ module RSpec
       allow(formatter).to receive(:hue).and_return(hue)
     end
 
-    def run_example(result = :passed)
+    def run_next_example(result = :passed)
       formatter.example_started(double('notification'))
       formatter.send("example_#{result}", double('notification'))
     end
@@ -40,33 +40,33 @@ module RSpec
       context 'on first example' do
         it 'flashes the first light' do
           expect(lights.first).to receive(:set_state).with(a_hash_including(on: true), 0)
-          run_example
+          run_next_example
         end
       end
 
       context 'on second example' do
         before do
-          run_example
+          run_next_example
         end
 
         it 'shuts off the first light and flashes the second light' do
           expect(lights[0]).to receive(:set_state).with(a_hash_including(on: false), 0)
           expect(lights[1]).to receive(:set_state).with(a_hash_including(on: true), 0)
-          run_example
+          run_next_example
         end
       end
 
       context 'after running examples the same number lights' do
         before do
           lights.size.times do
-            run_example
+            run_next_example
           end
         end
 
         it 'shuts off the last light and flashes the first light' do
           expect(lights.last).to receive(:set_state).with(a_hash_including(on: false), 0)
           expect(lights.first).to receive(:set_state).with(a_hash_including(on: true), 0)
-          run_example
+          run_next_example
         end
       end
 
@@ -81,7 +81,7 @@ module RSpec
 
         before do
           lights.size.times do
-            run_example
+            run_next_example
           end
         end
 
@@ -104,7 +104,7 @@ module RSpec
               0
             )
 
-            run_example(result)
+            run_next_example(result)
           end
         end
       end
