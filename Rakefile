@@ -8,4 +8,4 @@ end
 
 RuboCop::RakeTask.new
 
-task ci: [:spec, :rubocop]
+task ci: %i[spec rubocop]

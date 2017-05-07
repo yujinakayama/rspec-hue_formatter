@@ -23,7 +23,7 @@ module RSpec
     end
 
     def create_light(attributes = {})
-      fail ArgumentError unless attributes[:name]
+      raise ArgumentError unless attributes[:name]
       instance_double(Hue::Light, attributes[:name], attributes).as_null_object
     end
 
@@ -73,9 +73,9 @@ module RSpec
       context "when there're unreachable lights" do
         let(:lights) do
           [
-            create_light(name: "Lamp 1", reachable?: true),
-            create_light(name: "Lamp 2", reachable?: false),
-            create_light(name: "Lamp 3", reachable?: true),
+            create_light(name: 'Lamp 1', reachable?: true),
+            create_light(name: 'Lamp 2', reachable?: false),
+            create_light(name: 'Lamp 3', reachable?: true)
           ]
         end
 

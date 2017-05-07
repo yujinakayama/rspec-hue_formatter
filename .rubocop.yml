@@ -1,3 +1,7 @@
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
 Metrics/ClassLength:
   Max: 150
 
@@ -13,6 +17,9 @@ Style/AlignHash:
   EnforcedColonStyle: separator
 
 Style/Documentation:
+  Enabled: false
+
+Style/EmptyCaseCondition:
   Enabled: false
 
 Style/EmptyElse:
