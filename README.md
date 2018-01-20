@@ -1,8 +1,8 @@
-[![Gem Version](http://img.shields.io/gem/v/rspec-hue_formatter.svg?style=flat)](http://badge.fury.io/rb/rspec-hue_formatter)
-[![Dependency Status](http://img.shields.io/gemnasium/yujinakayama/rspec-hue_formatter.svg?style=flat)](https://gemnasium.com/yujinakayama/rspec-hue_formatter)
+[![Gem Version](https://badge.fury.io/rb/rspec-hue_formatter.svg)](http://badge.fury.io/rb/rspec-hue_formatter)
+[![Dependency Status](https://gemnasium.com/yujinakayama/rspec-hue_formatter.svg)](https://gemnasium.com/yujinakayama/rspec-hue_formatter)
 [![Build Status](https://travis-ci.org/yujinakayama/rspec-hue_formatter.svg?branch=master&style=flat)](https://travis-ci.org/yujinakayama/rspec-hue_formatter)
-[![Coverage Status](http://img.shields.io/coveralls/yujinakayama/rspec-hue_formatter/master.svg?style=flat)](https://coveralls.io/r/yujinakayama/rspec-hue_formatter)
-[![Code Climate](https://img.shields.io/codeclimate/github/yujinakayama/rspec-hue_formatter.svg?style=flat)](https://codeclimate.com/github/yujinakayama/rspec-hue_formatter)
+[![Coverage Status](https://coveralls.io/repos/yujinakayama/rspec-hue_formatter/badge.svg?branch=master&service=github)](https://coveralls.io/github/yujinakayama/rspec-hue_formatter?branch=master)
+[![Code Climate](https://codeclimate.com/github/yujinakayama/rspec-hue_formatter/badges/gpa.svg)](https://codeclimate.com/github/yujinakayama/rspec-hue_formatter)
 
 # RSpec::HueFormatter
 
