@@ -1,3 +1,7 @@
+Layout/AlignHash:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: separator
+
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
@@ -11,10 +15,6 @@ Metrics/LineLength:
 Metrics/ModuleLength:
   Exclude:
     - spec/**/*
-
-Style/AlignHash:
-  EnforcedHashRocketStyle: table
-  EnforcedColonStyle: separator
 
 Style/Documentation:
   Enabled: false
